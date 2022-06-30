@@ -106,40 +106,37 @@ export class MyElement extends LitElement {
 
   constructor() {
     super();
-    this.tweets = loadFromStorage();
-    this.tweet = {};
-    this.postCount = loadFromStorage().length
-    
+    this.tweets = [...loadFromStorage()];
+    this.postCount = this.tweets.length;
+  }
+
+  nameInput(event){
+    const value = event.target.value;
+    this.name = value;
   }
   
-    nameInput(event){
-      const name = event.target.value
-      this.name = value;
-      console.log(name)
-    }
-  
-    postInput(event){
-      const post = event.target.value
-      this.post = value;
-      console.log(post)
-    }
+  postInput(event){
+    const post = event.target.value
+    this.post = value;
+    console.log(post)
+  }
 
-    postTweet(){
-      check()
-        .then((response)=> alert('წარმატებული', response))
-        .catch((error)=> alert(error))
+  postTweet(){
+    check()
+      .then((response)=> alert('წარმატებული', response))
+      .catch((error)=> alert(error))
       this.tweets = [...this.tweets, {...this.tweets}]
       this.postCount = this.tweets.length
       saveToStorage(this.tweets)
   }
 
 
-    DeleteTweet(index) {
-      this.tweets.splice(index, 1);
-      this.tweets = [...this.tweets];
-      this.postCount = this.tweets.length;
-      deleteFromStorage(index);
-    }
-  }
+  DeleteTweet(index) {
+    this.tweets.splice(index, 1);
+    this.tweets = [...this.tweets];
+    this.postCount = this.tweets.length;
+    deleteFromStorage(index);
+   }
+}
   
 window.customElements.define('my-element', MyElement);
